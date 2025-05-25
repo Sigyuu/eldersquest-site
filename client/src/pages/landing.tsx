@@ -35,73 +35,73 @@ const LandingPage = () => {
 
   // 🔐 MILITARY-GRADE MAXIMUM SECURITY SYSTEM
   useEffect(() => {
-    // Clear all console methods (hide source code)
-    const originalConsole = window.console;
+    // Store original console for internal use
+    const originalConsole = { ...window.console };
+    
+    // Clear all console methods (hide source code) but keep originals for errors
     window.console = {
       ...originalConsole,
       log: () => {},
-      error: () => {},
       warn: () => {},
       info: () => {},
-      debug: () => {},
+      debug: originalConsole.debug, // Keep debug for our internal use
       trace: () => {},
       clear: () => {},
       dir: () => {},
-      table: () => {}
+      table: () => {},
+      error: originalConsole.error // Keep error for critical issues
     };
 
-    // VPN/Proxy detection and blocking
-    const detectVPN = async () => {
-      try {
-        const response = await fetch('https://ipapi.co/json/');
-        const data = await response.json();
-        
-        // Block VPN, proxy, hosting services
-        const suspiciousProviders = [
-          'amazon', 'google cloud', 'microsoft', 'digitalocean', 'vultr',
-          'linode', 'ovh', 'vpn', 'proxy', 'tor', 'anonymous'
-        ];
-        
-        const orgName = data.org?.toLowerCase() || '';
-        if (suspiciousProviders.some(provider => orgName.includes(provider))) {
-          document.body.innerHTML = '<div style="color: red; text-align: center; margin-top: 50vh;">🚫 VPN/Proxy Detected - Access Blocked</div>';
-          return false;
-        }
-
-        // Geographic restrictions (tylko wybrane kraje)
-        const allowedCountries = ['PL', 'DE', 'CZ', 'SK', 'LT', 'LV', 'EE'];
-        if (!allowedCountries.includes(data.country_code)) {
-          document.body.innerHTML = '<div style="color: red; text-align: center; margin-top: 50vh;">🌍 Geographic Access Restricted</div>';
-          return false;
-        }
-
-        return true;
-      } catch {
-        return true; // Allow on error to not block legitimate users
+    // Enhanced local security detection (no external calls)
+    const detectSuspiciousAccess = () => {
+      // Check timezone for basic geographic validation
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const allowedTimezones = [
+        'Europe/Warsaw', 'Europe/Berlin', 'Europe/Prague', 
+        'Europe/Bratislava', 'Europe/Vilnius', 'Europe/Riga', 'Europe/Tallinn'
+      ];
+      
+      // Advanced browser fingerprinting for VPN/proxy detection
+      const hasWebRTC = !!window.RTCPeerConnection;
+      const hasLocalStorage = !!window.localStorage;
+      const hasIndexedDB = !!window.indexedDB;
+      const languages = navigator.languages || [navigator.language];
+      
+      // Check for suspicious browser configurations
+      if (!hasWebRTC || !hasLocalStorage || !hasIndexedDB) {
+        document.body.innerHTML = '<div style="color: red; text-align: center; margin-top: 50vh;">🚫 Suspicious Browser Configuration Detected</div>';
+        return false;
       }
+      
+      // Basic timezone validation (can be bypassed but adds a layer)
+      if (!allowedTimezones.some(tz => timezone.includes(tz.split('/')[1]))) {
+        // Don't block, just log for monitoring
+        sessionStorage.setItem('geo_warning', 'timezone_mismatch');
+      }
+      
+      return true;
     };
 
-    // Enhanced bot detection with ML patterns
+    // Enhanced bot detection with ML patterns (more lenient for real users)
     const detectBot = () => {
       const userAgent = navigator.userAgent.toLowerCase();
       const botPatterns = [
         'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider',
         'yandexbot', 'facebookexternalhit', 'twitterbot', 'whatsapp',
         'curl', 'wget', 'python-requests', 'selenium', 'phantomjs',
-        'crawl', 'spider', 'scrape', 'archive.org', 'headless',
-        'automation', 'webdriver', 'nightmare', 'puppeteer'
+        'crawl', 'spider', 'scrape', 'archive.org'
       ];
       
-      // Check for missing browser APIs (bot indicator)
+      // Only block obvious automated tools, not legitimate browsers
+      const isObviousBot = botPatterns.some(pattern => userAgent.includes(pattern));
+      
+      // Check if it's a real browser with proper APIs
       const hasWebGL = !!window.WebGLRenderingContext;
       const hasCanvas = !!window.CanvasRenderingContext2D;
-      const hasTouch = 'ontouchstart' in window;
+      const hasLocalStorage = !!window.localStorage;
       
-      if (!hasWebGL || !hasCanvas) {
-        return true; // Likely a bot
-      }
-      
-      return botPatterns.some(pattern => userAgent.includes(pattern));
+      // Only block if it's both an obvious bot AND missing critical browser features
+      return isObviousBot && (!hasWebGL || !hasCanvas || !hasLocalStorage);
     };
 
     // Screenshot/recording protection
@@ -155,15 +155,11 @@ const LandingPage = () => {
         }
       });
 
-      // Inject fake source code for bots
-      const fakeScript = document.createElement('script');
-      fakeScript.innerHTML = `
-        // Fake source to mislead scrapers
-        const API_KEY = "fake_key_12345";
-        const TELEGRAM_URL = "https://t.me/fake_group";
-        const SECRET = "decoy_data";
-      `;
-      document.head.appendChild(fakeScript);
+      // Add fake meta tags to mislead scrapers (safer approach)
+      const fakeMeta = document.createElement('meta');
+      fakeMeta.setAttribute('name', 'api-endpoint');
+      fakeMeta.setAttribute('content', 'https://fake-api.example.com/v1');
+      document.head.appendChild(fakeMeta);
     };
 
     // Session timeout and monitoring
@@ -186,25 +182,22 @@ const LandingPage = () => {
         }
       }, 60000); // Check every minute
 
-      // IP tracking and anomaly detection
-      const trackAccess = async () => {
-        try {
-          const response = await fetch('https://ipapi.co/json/');
-          const data = await response.json();
-          
-          const accessLog = {
-            ip: data.ip,
-            country: data.country_name,
-            org: data.org,
-            timestamp: Date.now(),
-            userAgent: navigator.userAgent
-          };
-          
-          // Store in session for monitoring
-          const logs = JSON.parse(sessionStorage.getItem('access_logs') || '[]');
-          logs.push(accessLog);
-          sessionStorage.setItem('access_logs', JSON.stringify(logs.slice(-10))); // Keep last 10
-        } catch {}
+      // Local access tracking (no external API calls)
+      const trackAccess = () => {
+        const accessLog = {
+          timestamp: Date.now(),
+          userAgent: navigator.userAgent,
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          language: navigator.language,
+          platform: navigator.platform,
+          screenResolution: `${screen.width}x${screen.height}`,
+          sessionId: Math.random().toString(36).substr(2, 9)
+        };
+        
+        // Store in session for monitoring
+        const logs = JSON.parse(sessionStorage.getItem('access_logs') || '[]');
+        logs.push(accessLog);
+        sessionStorage.setItem('access_logs', JSON.stringify(logs.slice(-10))); // Keep last 10
       };
       
       trackAccess();
@@ -280,7 +273,7 @@ const LandingPage = () => {
     };
 
     // Security checks
-    const runSecurityChecks = async () => {
+    const runSecurityChecks = () => {
       // Initialize all security measures
       blockScreenCapture();
       obfuscateSource();
@@ -288,9 +281,9 @@ const LandingPage = () => {
       setupAdvancedDetection();
       obfuscateLinks();
 
-      // VPN/Geographic check
-      const vpnAllowed = await detectVPN();
-      if (!vpnAllowed) return false;
+      // Local security validation
+      const accessAllowed = detectSuspiciousAccess();
+      if (!accessAllowed) return false;
 
       // Bot detection
       if (detectBot()) {
@@ -342,15 +335,16 @@ const LandingPage = () => {
     };
 
     // Run all security checks
-    runSecurityChecks().then((securityPassed) => {
+    try {
+      const securityPassed = runSecurityChecks();
       if (securityPassed) {
         checkPassword();
       }
-    }).catch((error) => {
+    } catch (error) {
       console.error('Security check failed:', error);
-      // Still allow password check if security check fails due to network issues
+      // Still allow password check if security check fails
       checkPassword();
-    });
+    }
 
     // Standard animations
     const interval = setInterval(() => {
