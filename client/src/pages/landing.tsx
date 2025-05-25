@@ -666,10 +666,10 @@ const LandingPage = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 px-4 relative">
+      <section className="py-20 px-4 relative" id="faq">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-black text-center mb-16 text-cyan-400">
-            CZĘSTO ZADAWANE PYTANIA
+            ❓ CZĘSTO ZADAWANE PYTANIA
           </h2>
 
           <div className="space-y-6">
@@ -845,12 +845,44 @@ const LandingPage = () => {
         </div>
       </section>
 
+      {/* Testimonials Section - Opinie */}
+      <section className="py-20 px-4 relative" id="testimonials">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-black text-center mb-16 text-pink-500 neon-flicker">
+            💬 OPINIE CZŁONKÓW
+          </h2>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <div key={index} className="bg-gray-900/50 backdrop-blur border border-pink-500/30 rounded-lg p-6 hover:border-pink-500 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/25">
+                <div className="flex mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 text-pink-500 fill-current" />
+                  ))}
+                </div>
+                <p className="text-gray-300 mb-4 italic text-lg">"{testimonial.comment}"</p>
+                <p className="font-bold text-pink-400">— {testimonial.name}</p>
+              </div>
+            ))}
+          </div>
+          
+          <div className="text-center mt-12">
+            <div className="inline-block bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-lg p-6 border border-pink-500/50">
+              <p className="text-xl text-white font-bold">
+                🔥 Najlepsza organizacja z jaką pracowałem. 3 wypłaty w 2 dni 🔥
+              </p>
+              <p className="text-pink-400 mt-2">— @ghostclient</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
-      <section className="py-20 px-4 relative">
+      <section className="py-20 px-4 relative" id="contact">
         <div className="max-w-4xl mx-auto text-center">
           <Headphones className="w-16 h-16 text-pink-500 mx-auto mb-6" />
           <h2 className="text-4xl md:text-5xl font-black mb-4 text-pink-500">
-            KONTAKT & WSPARCIE
+            📞 KONTAKT & WSPARCIE
           </h2>
           <p className="text-xl text-gray-300 mb-8">
             Support 24/7, dostęp tylko po dołączeniu do zespołu
