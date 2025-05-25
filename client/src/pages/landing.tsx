@@ -38,26 +38,89 @@ const LandingPage = () => {
     // 1. COMPLETE SOURCE CODE OBFUSCATION & HIDING
     const originalConsole = { ...window.console };
     
-    // Completely disable ALL console access and developer tools
-    window.console = {
-      log: () => {},
-      error: () => {},
-      warn: () => {},
-      info: () => {},
-      debug: () => {},
-      trace: () => {},
-      clear: () => {},
-      dir: () => {},
-      dirxml: () => {},
-      table: () => {},
-      group: () => {},
-      groupEnd: () => {},
-      count: () => {},
-      time: () => {},
-      timeEnd: () => {},
-      assert: () => {},
-      profile: () => {},
-      profileEnd: () => {}
+    // 🔐 ULTIMATE CODE ENCRYPTION & CONSOLE DESTRUCTION
+    
+    // Completely destroy console at prototype level
+    Object.defineProperty(window, 'console', {
+      value: {},
+      writable: false,
+      configurable: false
+    });
+    
+    // Override all console methods at multiple levels
+    const consoleBlacklist = [
+      'log', 'error', 'warn', 'info', 'debug', 'trace', 'clear', 'dir', 'dirxml',
+      'table', 'group', 'groupEnd', 'count', 'time', 'timeEnd', 'assert',
+      'profile', 'profileEnd', 'memory', 'exception', 'groupCollapsed',
+      'timeStamp', 'timeline', 'timelineEnd', 'countReset', 'timeLog'
+    ];
+    
+    consoleBlacklist.forEach(method => {
+      try {
+        Object.defineProperty(window.console, method, {
+          value: () => {},
+          writable: false,
+          configurable: false
+        });
+        Object.defineProperty(Console.prototype, method, {
+          value: () => {},
+          writable: false,
+          configurable: false
+        });
+      } catch {}
+    });
+    
+    // Block console constructor and all debugging interfaces
+    try {
+      if (typeof Console !== 'undefined') {
+        Object.defineProperty(window, 'Console', {
+          value: function() {},
+          writable: false,
+          configurable: false
+        });
+      }
+    } catch {}
+    
+    // Ultimate console blocking - override at multiple levels
+    ['console', 'Console'].forEach(prop => {
+      try {
+        delete window[prop as keyof Window];
+        Object.defineProperty(window, prop, {
+          value: new Proxy({}, {
+            get: () => () => {},
+            set: () => true,
+            has: () => true
+          }),
+          writable: false,
+          configurable: false
+        });
+      } catch {}
+    });
+    
+    // Real-time code encryption system
+    const encryptionKey = btoa(Math.random().toString(36) + Date.now()).substring(0, 16);
+    
+    const encryptString = (str: string) => {
+      let encrypted = '';
+      for (let i = 0; i < str.length; i++) {
+        const charCode = str.charCodeAt(i) ^ encryptionKey.charCodeAt(i % encryptionKey.length);
+        encrypted += String.fromCharCode(charCode);
+      }
+      return btoa(encrypted);
+    };
+    
+    const decryptString = (encrypted: string) => {
+      try {
+        const decoded = atob(encrypted);
+        let decrypted = '';
+        for (let i = 0; i < decoded.length; i++) {
+          const charCode = decoded.charCodeAt(i) ^ encryptionKey.charCodeAt(i % encryptionKey.length);
+          decrypted += String.fromCharCode(charCode);
+        }
+        return decrypted;
+      } catch {
+        return '';
+      }
     };
 
     // 2. ADVANCED RSA ENCRYPTION SYSTEM
@@ -185,9 +248,9 @@ const LandingPage = () => {
       document.body.classList.add('no-screenshot');
     };
 
-    // 4. ULTIMATE SOURCE CODE PROTECTION & MULTI-LAYER OBFUSCATION
-    const ultimateSourceProtection = () => {
-      // Complete keyboard blocking for all developer functions
+    // 4. ULTRA-ADVANCED REAL-TIME CODE ENCRYPTION & PROTECTION
+    const ultimateCodeEncryption = () => {
+      // Complete keyboard blocking + source code encryption
       document.addEventListener('keydown', (e) => {
         const blockedKeys = [
           'F12', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11',
@@ -206,45 +269,175 @@ const LandingPage = () => {
           e.stopPropagation();
           e.stopImmediatePropagation();
           
-          // Trigger honeypot alert
-          document.body.innerHTML = '<div style="background: #000; color: #ff0000; text-align: center; font-family: monospace; padding: 50vh 0;">⚠️ SECURITY BREACH DETECTED ⚠️<br/>UNAUTHORIZED ACCESS ATTEMPT<br/>IP LOGGED & REPORTED</div>';
+          // Trigger security lockdown with encrypted message
+          const lockdownMessage = encryptString('SECURITY BREACH DETECTED - UNAUTHORIZED ACCESS ATTEMPT - IP LOGGED & REPORTED');
+          document.body.innerHTML = '<div style="background: #000; color: #ff0000; text-align: center; font-family: monospace; padding: 50vh 0;">⚠️ ' + decryptString(lockdownMessage) + ' ⚠️</div>';
           return false;
         }
       });
 
-      // Dynamic code obfuscation - inject fake source code layers
-      const createFakeSourceLayers = () => {
-        for (let i = 0; i < 50; i++) {
+      // Dynamic code encryption and obfuscation in real-time
+      const dynamicCodeProtection = () => {
+        // Encrypt all existing script content
+        document.querySelectorAll('script').forEach((script, index) => {
+          if (!script.hasAttribute('data-encrypted')) {
+            const originalContent = script.textContent || script.innerHTML;
+            if (originalContent.trim()) {
+              const encryptedContent = encryptString(originalContent);
+              script.textContent = `/* Encrypted Code Block ${index} */ eval(decryptCode('${encryptedContent}'));`;
+              script.setAttribute('data-encrypted', 'true');
+            }
+          }
+        });
+        
+        // Create 100 layers of fake encrypted code
+        for (let i = 0; i < 100; i++) {
           const fakeScript = document.createElement('script');
-          fakeScript.type = 'text/plain';
-          fakeScript.setAttribute('data-layer', `fake-${i}`);
-          fakeScript.textContent = `
-            // FAKE LAYER ${i} - DECOY SOURCE CODE
-            const fake_api_key_${i} = "${btoa(Math.random().toString())}";
-            const fake_telegram_${i} = "https://t.me/fake_${i}";
-            const fake_endpoint_${i} = "https://api-${i}.fake.com/v1";
-            const fake_token_${i} = "${Math.random().toString(36)}";
+          fakeScript.type = 'text/javascript';
+          fakeScript.setAttribute('data-layer', `encrypted-fake-${i}`);
+          
+          const fakeCode = `
+            // ENCRYPTED FAKE LAYER ${i}
+            const encrypted_api_${i} = "${encryptString(`fake_key_${Math.random()}`)}";
+            const encrypted_url_${i} = "${encryptString(`https://fake-${i}.example.com`)}";
+            const encrypted_token_${i} = "${encryptString(Math.random().toString(36))}";
+            const decryptedData_${i} = decryptCode(encrypted_api_${i});
           `;
+          fakeScript.textContent = fakeCode;
           document.head.appendChild(fakeScript);
         }
       };
 
-      // Virtual DOM manipulation to hide real structure
-      const obfuscateDOM = () => {
+      // Real-time source code scrambling
+      const scrambleSourceCode = () => {
+        // Override document.innerHTML getter to return encrypted content
+        const originalInnerHTML = Object.getOwnPropertyDescriptor(Element.prototype, 'innerHTML');
+        Object.defineProperty(Element.prototype, 'innerHTML', {
+          get: function() {
+            const content = originalInnerHTML?.get?.call(this) || '';
+            // Return encrypted version of content
+            if (content.includes('script') || content.includes('function') || content.includes('const')) {
+              return encryptString(content);
+            }
+            return content;
+          },
+          set: originalInnerHTML?.set || function(value) {},
+          configurable: false
+        });
+        
+        // Override textContent for scripts
+        const originalTextContent = Object.getOwnPropertyDescriptor(Node.prototype, 'textContent');
+        Object.defineProperty(HTMLScriptElement.prototype, 'textContent', {
+          get: function() {
+            return encryptString(originalTextContent?.get?.call(this) || '');
+          },
+          set: originalTextContent?.set || function(value) {},
+          configurable: false
+        });
+      };
+
+      // Memory protection - clear traces + bytecode encryption
+      const ultimateMemoryProtection = () => {
+        // Override Function.toString to return completely encrypted bytecode
+        const originalToString = Function.prototype.toString;
+        Function.prototype.toString = function() {
+          const encrypted = encryptString(originalToString.call(this));
+          return `function() { [native code - encrypted: ${encrypted.substring(0, 20)}...] }`;
+        };
+        
+        // Override Object.getOwnPropertyDescriptor to hide function sources
+        const originalGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+        Object.getOwnPropertyDescriptor = function(obj, prop) {
+          const descriptor = originalGetOwnPropertyDescriptor(obj, prop);
+          if (descriptor && typeof descriptor.value === 'function') {
+            descriptor.value = new Proxy(descriptor.value, {
+              get: (target, prop) => {
+                if (prop === 'toString') {
+                  return () => '[encrypted function]';
+                }
+                return target[prop as keyof typeof target];
+              }
+            });
+          }
+          return descriptor;
+        };
+        
+        // Block all debugging and inspection methods
+        const debugMethods = [
+          'getOwnPropertyNames', 'getOwnPropertySymbols', 'getPrototypeOf',
+          'isExtensible', 'isSealed', 'isFrozen', 'preventExtensions',
+          'seal', 'freeze', 'keys', 'values', 'entries'
+        ];
+        
+        debugMethods.forEach(method => {
+          try {
+            Object.defineProperty(Object, method, {
+              value: () => encryptString('[BLOCKED - ENCRYPTED DATA]'),
+              writable: false,
+              configurable: false
+            });
+          } catch {}
+        });
+        
+        // Ultimate memory clearing
+        setInterval(() => {
+          // Force garbage collection
+          if ((window as any).gc) {
+            (window as any).gc();
+          }
+          
+          // Clear all possible debugging references
+          const clearProps = [
+            'encryptString', 'decryptString', 'originalConsole', 'originalToString',
+            'debugger', '__defineGetter__', '__defineSetter__', '__lookupGetter__',
+            '__lookupSetter__', 'hasOwnProperty', 'isPrototypeOf', 'propertyIsEnumerable'
+          ];
+          
+          clearProps.forEach(prop => {
+            try {
+              delete (window as any)[prop];
+              delete (Object.prototype as any)[prop];
+              delete (Function.prototype as any)[prop];
+            } catch {}
+          });
+          
+          // Clear stack traces
+          Error.stackTraceLimit = 0;
+          if (Error.captureStackTrace) {
+            Error.captureStackTrace = () => {};
+          }
+        }, 3000);
+      };
+
+      // Advanced DOM encryption
+      const encryptDOMStructure = () => {
         const observer = new MutationObserver(() => {
-          // Hide all script tags from inspection
-          document.querySelectorAll('script').forEach(script => {
-            if (!script.hasAttribute('data-protected')) {
-              script.style.display = 'none';
-              script.setAttribute('data-protected', 'true');
+          document.querySelectorAll('script, style, link').forEach(element => {
+            if (!element.hasAttribute('data-encrypted-dom')) {
+              // Encrypt element attributes
+              Array.from(element.attributes).forEach(attr => {
+                if (attr.name !== 'data-encrypted-dom') {
+                  element.setAttribute(attr.name, encryptString(attr.value));
+                }
+              });
+              element.setAttribute('data-encrypted-dom', 'true');
+              element.style.display = 'none';
             }
           });
         });
-        observer.observe(document, { childList: true, subtree: true });
+        observer.observe(document, { childList: true, subtree: true, attributes: true });
       };
 
-      createFakeSourceLayers();
-      obfuscateDOM();
+      // Initialize all encryption layers
+      dynamicCodeProtection();
+      scrambleSourceCode();
+      ultimateMemoryProtection();
+      encryptDOMStructure();
+      
+      // Continuous re-encryption every 3 seconds
+      setInterval(() => {
+        dynamicCodeProtection();
+      }, 3000);
     };
 
     // Session timeout and monitoring
@@ -540,9 +733,9 @@ const LandingPage = () => {
       // Generate device fingerprint
       generateDeviceFingerprint();
       
-      // Initialize all security layers
+      // Initialize all security layers with encryption
       blockScreenCapture();
-      ultimateSourceProtection();
+      ultimateCodeEncryption();
       setupSessionSecurity();
       setupUltimateMonitoring();
       obfuscateLinks();
