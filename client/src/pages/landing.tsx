@@ -236,25 +236,27 @@ const LandingPage = () => {
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-8">
               {[
-                { name: 'O Nas', id: 'about' },
-                { name: 'Oferta', id: 'services' },
-                { name: 'Dołącz', id: 'join' },
-                { name: 'FAQ', id: 'faq' },
-                { name: 'Kontakt', id: 'contact' }
+                { name: '🏠 Główna', id: 'hero' },
+                { name: '⚙️ Jak Działamy', id: 'how-we-work' },
+                { name: '🔐 Weryfikacja', id: 'verification' },
+                { name: '💼 Oferta', id: 'services' },
+                { name: '💬 Opinie', id: 'testimonials' },
+                { name: '❓ FAQ', id: 'faq' },
+                { name: '📞 Kontakt', id: 'contact' }
               ].map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="text-gray-300 hover:text-pink-400 transition-colors duration-300 font-semibold hover:shadow-pink-500/50 hover:text-shadow-lg"
+                  className="text-gray-300 hover:text-pink-400 transition-colors duration-300 font-semibold hover:shadow-pink-500/50 hover:text-shadow-lg text-sm"
                 >
                   {item.name}
                 </button>
               ))}
               <button
                 onClick={handleTelegramClick}
-                className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold py-2 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
+                className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold py-2 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 neon-flicker"
               >
-                Telegram
+                🔗 Dołącz
               </button>
             </div>
 
@@ -273,11 +275,13 @@ const LandingPage = () => {
           }`}>
             <div className="py-4 space-y-4 border-t border-pink-500/30 mt-4">
               {[
-                { name: 'O Nas', id: 'about' },
-                { name: 'Oferta', id: 'services' },
-                { name: 'Dołącz', id: 'join' },
-                { name: 'FAQ', id: 'faq' },
-                { name: 'Kontakt', id: 'contact' }
+                { name: '🏠 Główna', id: 'hero' },
+                { name: '⚙️ Jak Działamy', id: 'how-we-work' },
+                { name: '🔐 Weryfikacja', id: 'verification' },
+                { name: '💼 Oferta', id: 'services' },
+                { name: '💬 Opinie', id: 'testimonials' },
+                { name: '❓ FAQ', id: 'faq' },
+                { name: '📞 Kontakt', id: 'contact' }
               ].map((item) => (
                 <button
                   key={item.id}
@@ -289,9 +293,9 @@ const LandingPage = () => {
               ))}
               <button
                 onClick={handleTelegramClick}
-                className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300"
+                className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 neon-flicker"
               >
-                Telegram
+                🔗 Dołącz
               </button>
             </div>
           </div>
@@ -356,14 +360,178 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Services Section - Nasza Oferta */}
-      <section className="py-20 px-4 relative">
+      {/* How We Work Section - Jak Działamy */}
+      <section className="py-20 px-4 relative" id="how-we-work">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-black text-center mb-4 text-pink-500">
-            NASZA OFERTA
+          <h2 className="text-4xl md:text-5xl font-black text-center mb-8 text-pink-500 neon-flicker">
+            ⚙️ JAK DZIAŁAMY
+          </h2>
+          <p className="text-center text-gray-300 mb-16 max-w-4xl mx-auto text-lg">
+            HUSTLER TEAM to zamknięta społeczność działająca na własnych systemach i narzędziach.
+            <br />
+            <span className="text-pink-400 font-bold">Działamy 24/7, szybko, profesjonalnie, bez zbędnych pytań.</span>
+          </p>
+          
+          <div className="grid md:grid-cols-2 gap-8 mb-16">
+            <div className="bg-gray-900/50 backdrop-blur border border-pink-500/30 rounded-lg p-8 hover:border-pink-500 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/25">
+              <h3 className="text-2xl font-bold text-white mb-6 flex items-center">
+                <Zap className="w-8 h-8 text-pink-500 mr-3" />
+                Umożliwiamy członkom:
+              </h3>
+              <ul className="space-y-3 text-gray-300">
+                <li className="flex items-center">
+                  <div className="w-2 h-2 bg-pink-500 rounded-full mr-3 animate-pulse"></div>
+                  Korzystanie z bramek OLX, Allegro, BLIK
+                </li>
+                <li className="flex items-center">
+                  <div className="w-2 h-2 bg-pink-500 rounded-full mr-3 animate-pulse"></div>
+                  Dostęp do automatyzacji i systemów
+                </li>
+                <li className="flex items-center">
+                  <div className="w-2 h-2 bg-pink-500 rounded-full mr-3 animate-pulse"></div>
+                  Wsparcie techniczne i mentoring
+                </li>
+                <li className="flex items-center">
+                  <div className="w-2 h-2 bg-pink-500 rounded-full mr-3 animate-pulse"></div>
+                  Wgląd w realne dane i logi
+                </li>
+              </ul>
+            </div>
+            
+            <div className="bg-gray-900/50 backdrop-blur border border-purple-500/30 rounded-lg p-8 hover:border-purple-500 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/25">
+              <h3 className="text-2xl font-bold text-white mb-6 flex items-center">
+                <Crown className="w-8 h-8 text-purple-500 mr-3" />
+                Nasz zespół:
+              </h3>
+              <div className="space-y-4 text-gray-300">
+                <p className="text-cyan-400 font-semibold text-lg">
+                  To doświadczeni ludzie z branży
+                </p>
+                <p>
+                  <span className="text-pink-400 font-bold">Nie uczymy się</span> – my <span className="text-pink-400 font-bold">uczymy</span>
+                </p>
+                <p>
+                  Każdy członek to osoba zweryfikowana
+                </p>
+                <div className="bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-lg p-4 mt-4">
+                  <p className="text-white font-bold">🔥 100% sprawdzone metody</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <div className="inline-block bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-lg p-8 border border-pink-500/50">
+              <h3 className="text-3xl font-black text-pink-500 mb-4">EFEKT</h3>
+              <p className="text-xl text-white">
+                Członkowie mają dostęp do najlepszych narzędzi i wsparcia w branży
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Enhanced Verification Section */}
+      <section className="py-20 px-4 relative" id="verification">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <Lock className="w-20 h-20 text-pink-500 mx-auto mb-6 animate-pulse" />
+            <h2 className="text-4xl md:text-5xl font-black mb-4 text-pink-500 neon-flicker">
+              🔐 WERYFIKACJA
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Dołączenie do Hustler Team nie jest automatyczne.
+              <br />
+              <span className="text-pink-400 font-bold">Każdy nowy kandydat musi przejść weryfikację</span>
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-5 gap-4 mb-16">
+            {[
+              { step: "1", title: "Kliknij", description: "Przycisk 'Dołącz / Weryfikacja'" },
+              { step: "2", title: "Telegram", description: "Przeniesienie do aplikacji" },
+              { step: "3", title: "Wiadomość", description: "Piszesz do admina" },
+              { step: "4", title: "Analiza", description: "Admin sprawdza profil" },
+              { step: "5", title: "Dostęp", description: "Otrzymujesz bramkę OLX" }
+            ].map((item, index) => (
+              <div key={index} className="relative">
+                <div className="bg-gray-900/50 backdrop-blur border border-pink-500/30 rounded-lg p-6 text-center hover:border-pink-500 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/25">
+                  <div className="text-4xl font-black text-pink-500 mb-2">{item.step}</div>
+                  <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
+                  <p className="text-gray-400 text-sm">{item.description}</p>
+                </div>
+                {index < 4 && (
+                  <ArrowRight className="hidden md:block absolute top-1/2 -right-6 transform -translate-y-1/2 text-pink-500 w-6 h-6" />
+                )}
+              </div>
+            ))}
+          </div>
+          
+          <div className="bg-gray-900/80 backdrop-blur border border-pink-500/50 rounded-lg p-8 mb-12">
+            <h3 className="text-2xl font-bold text-pink-400 mb-6 text-center">Co musisz podać:</h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <ul className="space-y-3">
+                <li className="flex items-center text-gray-300">
+                  <CheckCircle className="w-5 h-5 text-pink-500 mr-3" />
+                  Dlaczego chcesz dołączyć
+                </li>
+                <li className="flex items-center text-gray-300">
+                  <CheckCircle className="w-5 h-5 text-pink-500 mr-3" />
+                  Co już potrafisz
+                </li>
+              </ul>
+              <ul className="space-y-3">
+                <li className="flex items-center text-gray-300">
+                  <CheckCircle className="w-5 h-5 text-pink-500 mr-3" />
+                  Jakie masz doświadczenie
+                </li>
+                <li className="flex items-center text-gray-300">
+                  <CheckCircle className="w-5 h-5 text-pink-500 mr-3" />
+                  Czego oczekujesz
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="text-center space-y-6">
+            <div className="bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-lg p-6 border border-pink-500/50">
+              <h3 className="text-2xl font-bold text-white mb-4">🔥 Po weryfikacji:</h3>
+              <p className="text-xl text-pink-400 font-bold">
+                Otrzymujesz dostęp do prywatnej bramki OLX z prowizją 25%
+              </p>
+              <p className="text-gray-300 mt-2">
+                Brak stałych opłat – tylko uczciwa prowizja
+              </p>
+            </div>
+            
+            <p className="text-gray-400">
+              ⏱️ Weryfikacja trwa do kilku godzin. Od razu po niej dostajesz pełny dostęp.
+            </p>
+            
+            <button 
+              onClick={handleTelegramClick}
+              className="group relative overflow-hidden bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold py-6 px-12 rounded-lg text-2xl transition-all duration-300 transform hover:scale-110 shadow-lg shadow-pink-500/50 pulse-border animate-pulse"
+            >
+              <span className="relative flex items-center justify-center">
+                <Lock className="w-8 h-8 mr-4" />
+                Rozpocznij Weryfikację
+                <ArrowRight className="w-6 h-6 ml-4 group-hover:translate-x-2 transition-transform" />
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-pink-400 opacity-0 group-hover:opacity-30 transition-opacity"></div>
+              <div className="absolute -inset-1 bg-gradient-to-r from-pink-500 to-purple-500 rounded-lg blur opacity-0 group-hover:opacity-75 transition duration-300"></div>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Enhanced Services Section - Nasza Oferta */}
+      <section className="py-20 px-4 relative" id="services">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-black text-center mb-4 text-pink-500 neon-flicker">
+            💼 NASZA OFERTA
           </h2>
           <p className="text-center text-gray-400 mb-16 max-w-2xl mx-auto">
-            Sprawdzone metody i narzędzia dla profesjonalistów branży
+            Kafelkowy układ z różowymi neonowymi ikonami i opisami
           </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
