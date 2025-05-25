@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Game } from "./components/Game";
 import { SoundManager } from "./components/SoundManager";
+import LandingPage from "./pages/landing";
 import "@fontsource/inter";
 
 const queryClient = new QueryClient({
@@ -20,12 +21,11 @@ function App() {
         <Suspense 
           fallback={
             <div className="flex items-center justify-center h-full">
-              <div className="text-2xl font-bold">Loading Creative Blocks...</div>
+              <div className="text-2xl font-bold">Loading Hustler Team...</div>
             </div>
           }
         >
-          <Game />
-          <SoundManager />
+          <LandingPage />
         </Suspense>
       </div>
     </QueryClientProvider>
