@@ -59,7 +59,7 @@ const LandingPage = () => {
   }, []);
 
   const handleTelegramClick = () => {
-    window.open("https://t.me/+zq7cQlDNLe5hNDM0", "_blank");
+    window.open("https://t.me/m/1SHNvmVeYzQ8", "_blank");
   };
 
   const scrollToSection = (sectionId: string) => {
