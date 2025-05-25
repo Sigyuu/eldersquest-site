@@ -31,8 +31,95 @@ const LandingPage = () => {
   const [scanLineActive, setScanLineActive] = useState(false);
   const [showNavbar, setShowNavbar] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  // 🔐 MILITARY-GRADE SECURITY SYSTEM
   useEffect(() => {
+    // Bot detection and blocking (refined for real users)
+    const detectBot = () => {
+      const userAgent = navigator.userAgent.toLowerCase();
+      const botPatterns = [
+        'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider',
+        'yandexbot', 'facebookexternalhit', 'twitterbot', 'whatsapp',
+        'curl', 'wget', 'python-requests', 'selenium', 'phantomjs',
+        'crawl', 'spider', 'scrape', 'archive.org'
+      ];
+      
+      return botPatterns.some(pattern => userAgent.includes(pattern));
+    };
+
+    // Security checks
+    const runSecurityChecks = () => {
+      // Block bots
+      if (detectBot()) {
+        document.body.innerHTML = '<div style="color: red; text-align: center; margin-top: 50vh;">Access Denied</div>';
+        return false;
+      }
+
+      // Block dev tools (basic protection)
+      let devtools = {open: false, orientation: null};
+      const threshold = 160;
+
+      setInterval(() => {
+        if (window.outerHeight - window.innerHeight > threshold || 
+            window.outerWidth - window.innerWidth > threshold) {
+          if (!devtools.open) {
+            devtools.open = true;
+            console.clear();
+            document.body.innerHTML = '<div style="color: red; text-align: center; margin-top: 50vh;">🔒 Access Restricted</div>';
+          }
+        }
+      }, 500);
+
+      return true;
+    };
+
+    // Password protection
+    const checkPassword = () => {
+      const storedAuth = sessionStorage.getItem('hustler_auth');
+      if (storedAuth === 'verified') {
+        setIsAuthenticated(true);
+        return true;
+      }
+
+      const passwords = ['HUSTLER2025', 'PINK_SECURITY', 'CYBER_ACCESS'];
+      let attempts = 0;
+      const maxAttempts = 3;
+
+      const promptPassword = () => {
+        if (attempts >= maxAttempts) {
+          alert('🚫 Zbyt wiele prób. Dostęp zablokowany.');
+          window.close();
+          return false;
+        }
+
+        const password = prompt('🔐 DOSTĘP ZABEZPIECZONY\nWprowadź hasło dostępu:');
+        
+        if (!password) {
+          window.close();
+          return false;
+        }
+
+        if (passwords.includes(password.toUpperCase())) {
+          sessionStorage.setItem('hustler_auth', 'verified');
+          setIsAuthenticated(true);
+          return true;
+        } else {
+          attempts++;
+          alert(`❌ Nieprawidłowe hasło. Pozostałe próby: ${maxAttempts - attempts}`);
+          return promptPassword();
+        }
+      };
+
+      return promptPassword();
+    };
+
+    // Run all security checks
+    if (runSecurityChecks()) {
+      checkPassword();
+    }
+
+    // Standard animations
     const interval = setInterval(() => {
       setGlitchActive(true);
       setTimeout(() => setGlitchActive(false), 200);
@@ -51,10 +138,27 @@ const LandingPage = () => {
 
     window.addEventListener('scroll', handleScroll);
 
+    // Disable right-click context menu
+    const handleContextMenu = (e: MouseEvent) => e.preventDefault();
+    document.addEventListener('contextmenu', handleContextMenu);
+
+    // Disable F12, Ctrl+Shift+I, Ctrl+U
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'F12' || 
+          (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+          (e.ctrlKey && e.key === 'u')) {
+        e.preventDefault();
+        alert('🔒 Funkcja wyłączona ze względów bezpieczeństwa');
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+
     return () => {
       clearInterval(interval);
       clearInterval(scanInterval);
       window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('contextmenu', handleContextMenu);
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
 
@@ -209,6 +313,22 @@ const LandingPage = () => {
       comment: "Codziennie nowe możliwości. Team zawsze dotrzymuje słowa.",
     },
   ];
+
+  // Show loading/auth screen until authenticated
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <div className="text-center">
+          <Crown className="w-16 h-16 text-pink-500 mx-auto mb-4 animate-pulse" />
+          <h1 className="text-4xl font-black text-pink-500 mb-4 neon-text">🔐 HUSTLER TEAM</h1>
+          <p className="text-gray-400 animate-pulse">Weryfikacja dostępu...</p>
+          <div className="mt-8">
+            <div className="w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
