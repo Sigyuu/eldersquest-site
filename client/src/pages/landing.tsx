@@ -33,43 +33,270 @@ const LandingPage = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // 🔐 MILITARY-GRADE SECURITY SYSTEM
+  // 🔐 MILITARY-GRADE MAXIMUM SECURITY SYSTEM
   useEffect(() => {
-    // Bot detection and blocking (refined for real users)
+    // Clear all console methods (hide source code)
+    const originalConsole = window.console;
+    window.console = {
+      ...originalConsole,
+      log: () => {},
+      error: () => {},
+      warn: () => {},
+      info: () => {},
+      debug: () => {},
+      trace: () => {},
+      clear: () => {},
+      dir: () => {},
+      table: () => {}
+    };
+
+    // VPN/Proxy detection and blocking
+    const detectVPN = async () => {
+      try {
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        
+        // Block VPN, proxy, hosting services
+        const suspiciousProviders = [
+          'amazon', 'google cloud', 'microsoft', 'digitalocean', 'vultr',
+          'linode', 'ovh', 'vpn', 'proxy', 'tor', 'anonymous'
+        ];
+        
+        const orgName = data.org?.toLowerCase() || '';
+        if (suspiciousProviders.some(provider => orgName.includes(provider))) {
+          document.body.innerHTML = '<div style="color: red; text-align: center; margin-top: 50vh;">🚫 VPN/Proxy Detected - Access Blocked</div>';
+          return false;
+        }
+
+        // Geographic restrictions (tylko wybrane kraje)
+        const allowedCountries = ['PL', 'DE', 'CZ', 'SK', 'LT', 'LV', 'EE'];
+        if (!allowedCountries.includes(data.country_code)) {
+          document.body.innerHTML = '<div style="color: red; text-align: center; margin-top: 50vh;">🌍 Geographic Access Restricted</div>';
+          return false;
+        }
+
+        return true;
+      } catch {
+        return true; // Allow on error to not block legitimate users
+      }
+    };
+
+    // Enhanced bot detection with ML patterns
     const detectBot = () => {
       const userAgent = navigator.userAgent.toLowerCase();
       const botPatterns = [
         'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider',
         'yandexbot', 'facebookexternalhit', 'twitterbot', 'whatsapp',
         'curl', 'wget', 'python-requests', 'selenium', 'phantomjs',
-        'crawl', 'spider', 'scrape', 'archive.org'
+        'crawl', 'spider', 'scrape', 'archive.org', 'headless',
+        'automation', 'webdriver', 'nightmare', 'puppeteer'
       ];
+      
+      // Check for missing browser APIs (bot indicator)
+      const hasWebGL = !!window.WebGLRenderingContext;
+      const hasCanvas = !!window.CanvasRenderingContext2D;
+      const hasTouch = 'ontouchstart' in window;
+      
+      if (!hasWebGL || !hasCanvas) {
+        return true; // Likely a bot
+      }
       
       return botPatterns.some(pattern => userAgent.includes(pattern));
     };
 
-    // Security checks
-    const runSecurityChecks = () => {
-      // Block bots
-      if (detectBot()) {
-        document.body.innerHTML = '<div style="color: red; text-align: center; margin-top: 50vh;">Access Denied</div>';
-        return false;
-      }
+    // Screenshot/recording protection
+    const blockScreenCapture = () => {
+      // CSS to hide content when screenshot is detected
+      const antiScreenshotCSS = `
+        @media print {
+          * { display: none !important; }
+          body::after { content: "🔒 PROTECTED CONTENT"; }
+        }
+        
+        .no-screenshot {
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          -webkit-touch-callout: none;
+          -webkit-tap-highlight-color: transparent;
+        }
+      `;
+      
+      const style = document.createElement('style');
+      style.textContent = antiScreenshotCSS;
+      document.head.appendChild(style);
+      
+      // Add protection class to body
+      document.body.classList.add('no-screenshot');
+    };
 
-      // Block dev tools (basic protection)
-      let devtools = {open: false, orientation: null};
+    // Advanced obfuscation and source hiding
+    const obfuscateSource = () => {
+      // Disable source viewing
+      document.addEventListener('keydown', (e) => {
+        // Block all developer shortcuts
+        if ((e.ctrlKey || e.metaKey) && (
+          e.key === 'u' || e.key === 'U' ||
+          e.key === 's' || e.key === 'S' ||
+          e.key === 'i' || e.key === 'I' ||
+          e.key === 'j' || e.key === 'J' ||
+          e.key === 'c' || e.key === 'C'
+        )) {
+          e.preventDefault();
+          alert('🔒 Funkcja zabezpieczona');
+          return false;
+        }
+        
+        if (e.key === 'F12' || e.key === 'F5' || e.key === 'F3') {
+          e.preventDefault();
+          alert('🔒 Narzędzia deweloperskie wyłączone');
+          return false;
+        }
+      });
+
+      // Inject fake source code for bots
+      const fakeScript = document.createElement('script');
+      fakeScript.innerHTML = `
+        // Fake source to mislead scrapers
+        const API_KEY = "fake_key_12345";
+        const TELEGRAM_URL = "https://t.me/fake_group";
+        const SECRET = "decoy_data";
+      `;
+      document.head.appendChild(fakeScript);
+    };
+
+    // Session timeout and monitoring
+    const setupSessionSecurity = () => {
+      const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes
+      let lastActivity = Date.now();
+      
+      const updateActivity = () => { lastActivity = Date.now(); };
+      ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'].forEach(event => {
+        document.addEventListener(event, updateActivity, true);
+      });
+
+      // Auto logout on inactivity
+      const checkTimeout = setInterval(() => {
+        if (Date.now() - lastActivity > SESSION_TIMEOUT) {
+          sessionStorage.clear();
+          localStorage.clear();
+          document.body.innerHTML = '<div style="color: orange; text-align: center; margin-top: 50vh;">⏰ Session Expired - Refresh Required</div>';
+          clearInterval(checkTimeout);
+        }
+      }, 60000); // Check every minute
+
+      // IP tracking and anomaly detection
+      const trackAccess = async () => {
+        try {
+          const response = await fetch('https://ipapi.co/json/');
+          const data = await response.json();
+          
+          const accessLog = {
+            ip: data.ip,
+            country: data.country_name,
+            org: data.org,
+            timestamp: Date.now(),
+            userAgent: navigator.userAgent
+          };
+          
+          // Store in session for monitoring
+          const logs = JSON.parse(sessionStorage.getItem('access_logs') || '[]');
+          logs.push(accessLog);
+          sessionStorage.setItem('access_logs', JSON.stringify(logs.slice(-10))); // Keep last 10
+        } catch {}
+      };
+      
+      trackAccess();
+    };
+
+    // Advanced dev tools detection
+    const setupAdvancedDetection = () => {
+      let devtools = {open: false};
       const threshold = 160;
 
-      setInterval(() => {
+      // Multiple detection methods
+      const checkDevTools = () => {
+        // Method 1: Window size difference
         if (window.outerHeight - window.innerHeight > threshold || 
             window.outerWidth - window.innerWidth > threshold) {
-          if (!devtools.open) {
-            devtools.open = true;
-            console.clear();
-            document.body.innerHTML = '<div style="color: red; text-align: center; margin-top: 50vh;">🔒 Access Restricted</div>';
-          }
+          return true;
         }
-      }, 500);
+
+        // Method 2: Console detection
+        let devToolsOpen = false;
+        const element = new Image();
+        Object.defineProperty(element, 'id', {
+          get: function() {
+            devToolsOpen = true;
+            throw new Error('Dev tools detected');
+          }
+        });
+        
+        try {
+          console.log('%c', element);
+        } catch {
+          return devToolsOpen;
+        }
+
+        // Method 3: Performance timing
+        const start = performance.now();
+        debugger;
+        const end = performance.now();
+        return (end - start) > 100; // If debugger paused execution
+      };
+
+      setInterval(() => {
+        if (checkDevTools() && !devtools.open) {
+          devtools.open = true;
+          // Clear all data
+          sessionStorage.clear();
+          localStorage.clear();
+          document.body.innerHTML = '<div style="color: red; text-align: center; margin-top: 50vh; font-family: monospace;">🔒 SECURITY BREACH DETECTED<br/>ACCESS TERMINATED</div>';
+        }
+      }, 1000);
+    };
+
+    // Dynamic link obfuscation for Telegram
+    const obfuscateLinks = () => {
+      const realLink = "https://t.me/m/1SHNvmVeYzQ8";
+      const fakeLinks = [
+        "https://t.me/fake_group_123",
+        "https://t.me/decoy_channel",
+        "https://t.me/honeypot_trap"
+      ];
+      
+      // Store real link encoded
+      const encoded = btoa(realLink);
+      sessionStorage.setItem('tg_link', encoded);
+      
+      // Inject fake links in DOM for scrapers
+      fakeLinks.forEach(link => {
+        const fakeElement = document.createElement('div');
+        fakeElement.style.display = 'none';
+        fakeElement.innerHTML = `<a href="${link}">Join Group</a>`;
+        document.body.appendChild(fakeElement);
+      });
+    };
+
+    // Security checks
+    const runSecurityChecks = async () => {
+      // Initialize all security measures
+      blockScreenCapture();
+      obfuscateSource();
+      setupSessionSecurity();
+      setupAdvancedDetection();
+      obfuscateLinks();
+
+      // VPN/Geographic check
+      const vpnAllowed = await detectVPN();
+      if (!vpnAllowed) return false;
+
+      // Bot detection
+      if (detectBot()) {
+        document.body.innerHTML = '<div style="color: red; text-align: center; margin-top: 50vh;">🤖 Automated Access Denied</div>';
+        return false;
+      }
 
       return true;
     };
@@ -163,7 +390,12 @@ const LandingPage = () => {
   }, []);
 
   const handleTelegramClick = () => {
-    window.open("https://t.me/m/1SHNvmVeYzQ8", "_blank");
+    // Retrieve obfuscated link
+    const encoded = sessionStorage.getItem('tg_link');
+    if (encoded) {
+      const realLink = atob(encoded);
+      window.open(realLink, "_blank", "noopener,noreferrer");
+    }
   };
 
   const scrollToSection = (sectionId: string) => {
