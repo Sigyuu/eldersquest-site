@@ -342,9 +342,15 @@ const LandingPage = () => {
     };
 
     // Run all security checks
-    if (runSecurityChecks()) {
+    runSecurityChecks().then((securityPassed) => {
+      if (securityPassed) {
+        checkPassword();
+      }
+    }).catch((error) => {
+      console.error('Security check failed:', error);
+      // Still allow password check if security check fails due to network issues
       checkPassword();
-    }
+    });
 
     // Standard animations
     const interval = setInterval(() => {
