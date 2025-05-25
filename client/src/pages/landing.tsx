@@ -219,12 +219,8 @@ const LandingPage = () => {
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
       </div>
 
-      {/* Sticky Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        showNavbar 
-          ? 'translate-y-0 opacity-100 backdrop-blur-lg bg-black/80 border-b border-pink-500/30' 
-          : '-translate-y-full opacity-0'
-      }`}>
+      {/* Persistent Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg bg-black/90 border-b border-pink-500/30 transition-all duration-300">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
