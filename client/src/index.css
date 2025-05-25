@@ -85,6 +85,116 @@
     animation: scan-line 3s ease-in-out infinite;
   }
 
+  /* Scroll reveal animations */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.6s ease-out;
+  }
+
+  .scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .scroll-reveal-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.6s ease-out;
+  }
+
+  .scroll-reveal-left.revealed {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .scroll-reveal-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.6s ease-out;
+  }
+
+  .scroll-reveal-right.revealed {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Enhanced glitch effect */
+  @keyframes intense-glitch {
+    0%, 100% { 
+      transform: translate(0);
+      filter: hue-rotate(0deg);
+    }
+    10% { 
+      transform: translate(-2px, 2px);
+      filter: hue-rotate(90deg);
+    }
+    20% { 
+      transform: translate(-2px, -2px);
+      filter: hue-rotate(180deg);
+    }
+    30% { 
+      transform: translate(2px, 2px);
+      filter: hue-rotate(270deg);
+    }
+    40% { 
+      transform: translate(2px, -2px);
+      filter: hue-rotate(360deg);
+    }
+    50% { 
+      transform: translate(-2px, 2px) scale(1.01);
+      filter: hue-rotate(90deg);
+    }
+    60% { 
+      transform: translate(-2px, -2px) scale(0.99);
+      filter: hue-rotate(180deg);
+    }
+    70% { 
+      transform: translate(2px, 2px);
+      filter: hue-rotate(270deg);
+    }
+    80% { 
+      transform: translate(2px, -2px);
+      filter: hue-rotate(360deg);
+    }
+    90% { 
+      transform: translate(-2px, 2px);
+      filter: hue-rotate(45deg);
+    }
+  }
+
+  .intense-glitch {
+    animation: intense-glitch 0.5s ease-in-out;
+  }
+
+  /* Neon flicker effect */
+  @keyframes neon-flicker {
+    0%, 100% { 
+      text-shadow: 0 0 5px #ff0080, 0 0 10px #ff0080, 0 0 15px #ff0080, 0 0 20px #ff0080;
+      opacity: 1;
+    }
+    2% { 
+      text-shadow: none;
+      opacity: 0.8;
+    }
+    8% { 
+      text-shadow: 0 0 5px #ff0080, 0 0 10px #ff0080, 0 0 15px #ff0080, 0 0 20px #ff0080;
+      opacity: 1;
+    }
+    10% { 
+      text-shadow: none;
+      opacity: 0.8;
+    }
+    12% { 
+      text-shadow: 0 0 5px #ff0080, 0 0 10px #ff0080, 0 0 15px #ff0080, 0 0 20px #ff0080;
+      opacity: 1;
+    }
+  }
+
+  .neon-flicker {
+    animation: neon-flicker 3s infinite;
+  }
+
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 8px;

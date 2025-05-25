@@ -1,9 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import { MessageCircle, Zap, Shield, Users, Clock, Star, ChevronRight, CreditCard, Package, Lock, Database, User, ArrowRight, CheckCircle, Eye, Headphones, AlertTriangle, TrendingUp, Wifi, Smartphone } from 'lucide-react';
+import React, { useEffect, useState } from "react";
+import {
+  MessageCircle,
+  Zap,
+  Shield,
+  Users,
+  Clock,
+  Star,
+  ChevronRight,
+  CreditCard,
+  Package,
+  Lock,
+  Database,
+  User,
+  ArrowRight,
+  CheckCircle,
+  Eye,
+  Headphones,
+  AlertTriangle,
+  TrendingUp,
+  Wifi,
+  Smartphone,
+  Menu,
+  X,
+  Crown,
+  DollarSign,
+} from "lucide-react";
 
 const LandingPage = () => {
   const [glitchActive, setGlitchActive] = useState(false);
   const [scanLineActive, setScanLineActive] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -16,155 +43,171 @@ const LandingPage = () => {
       setTimeout(() => setScanLineActive(false), 1000);
     }, 5000);
 
+    // Show navbar on scroll
+    const handleScroll = () => {
+      const scrolled = window.scrollY > 100;
+      setShowNavbar(scrolled);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
     return () => {
       clearInterval(interval);
       clearInterval(scanInterval);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   const handleTelegramClick = () => {
-    // Placeholder for Telegram link - user can replace with actual link
-    window.open('https://t.me/YourHustlerTeamGroup', '_blank');
+    window.open("https://t.me/+zq7cQlDNLe5hNDM0", "_blank");
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setMobileMenuOpen(false);
+    }
   };
 
   const services = [
     {
       icon: <CreditCard className="w-8 h-8" />,
       title: "Bramki Płatnicze",
-      description: "Blik, Revolut, PayPal i inne metody"
+      description: "Blik, Revolut, PayPal i inne metody",
     },
     {
       icon: <Package className="w-8 h-8" />,
       title: "OLX / Marketplace",
-      description: "Sprawdzone metody marketplace"
+      description: "Sprawdzone metody marketplace",
     },
     {
       icon: <Users className="w-8 h-8" />,
       title: "Facebook / Social",
-      description: "Dostęp do platform społecznościowych"
+      description: "Dostęp do platform społecznościowych",
     },
     {
       icon: <Database className="w-8 h-8" />,
       title: "Bazy Danych",
-      description: "Dostęp do logów i baz danych"
+      description: "Dostęp do logów i baz danych",
     },
     {
       icon: <Lock className="w-8 h-8" />,
       title: "Panele Klienta",
-      description: "Bezpieczne dostępy do systemów"
+      description: "Bezpieczne dostępy do systemów",
     },
     {
       icon: <Zap className="w-8 h-8" />,
       title: "Ekskluzywne Metody",
-      description: "Unikalne rozwiązania dla członków"
-    }
+      description: "Unikalne rozwiązania dla członków",
+    },
   ];
 
   const verificationSteps = [
     {
       step: "01",
       title: "Kontakt",
-      description: "Wyślij wiadomość przez Telegram"
+      description: "Wyślij wiadomość przez Telegram",
     },
     {
-      step: "02", 
+      step: "02",
       title: "Weryfikacja",
-      description: "Sprawdzenie doświadczenia i motywacji"
+      description: "Sprawdzenie doświadczenia i motywacji",
     },
     {
       step: "03",
       title: "Akceptacja",
-      description: "Dostęp do ekskluzywnej społeczności"
-    }
+      description: "Dostęp do ekskluzywnej społeczności",
+    },
   ];
 
   const faqData = [
     {
       question: "Czy członkostwo jest płatne?",
-      answer: "Tak, pobieramy prowizję 25% od zysków. Bez ukrytych opłat."
+      answer: "Tak, pobieramy prowizję 25% od zysków. Bez ukrytych opłat.",
     },
     {
       question: "Czy muszę mieć doświadczenie?",
-      answer: "Nie wymagamy doświadczenia, ale motywacja jest kluczowa."
+      answer: "Nie wymagamy doświadczenia, ale motywacja jest kluczowa.",
     },
     {
       question: "Jak wygląda kontakt i wsparcie?",
-      answer: "Support 24/7 przez Telegram po dołączeniu do zespołu."
+      answer: "Support 24/7 przez Telegram po dołączeniu do zespołu.",
     },
     {
       question: "Czy działania są anonimowe?",
-      answer: "Tak, zapewniamy pełną anonimowość i bezpieczeństwo."
-    }
+      answer: "Tak, zapewniamy pełną anonimowość i bezpieczeństwo.",
+    },
   ];
 
   const teamFeatures = [
-    "10+ lat doświadczenia w hustle game",
+    "3 lata doświadczenia",
     "Bezpieczne działania, realne efekty",
     "Sprawdzone metody i narzędzia",
-    "Stała aktualizacja technik"
+    "Stała aktualizacja technik",
   ];
 
   const tools = [
     { name: "Proxy & VPN", icon: <Wifi className="w-6 h-6" /> },
     { name: "Marketplace Bots", icon: <Package className="w-6 h-6" /> },
     { name: "SMS API", icon: <Smartphone className="w-6 h-6" /> },
-    { name: "Database Access", icon: <Database className="w-6 h-6" /> }
+    { name: "Database Access", icon: <Database className="w-6 h-6" /> },
   ];
 
   const blogPosts = [
     {
       title: "5 tricków z OLX, które działają w 2025",
-      category: "Marketplace"
+      category: "Marketplace",
     },
     {
       title: "Jak chronić się przed namierzeniem?",
-      category: "Bezpieczeństwo"
+      category: "Bezpieczeństwo",
     },
     {
       title: "Nowe metody płatności w 2025",
-      category: "Finanse"
-    }
+      category: "Finanse",
+    },
   ];
 
   const features = [
     {
       icon: <Zap className="w-8 h-8" />,
       title: "Błyskawiczna szybkość",
-      description: "Codziennie nowe logi i natychmiastowe działanie"
+      description: "Codziennie nowe logi i natychmiastowe działanie",
     },
     {
       icon: <Shield className="w-8 h-8" />,
       title: "Pełna anonimowość",
-      description: "Twoja prywatność jest naszym priorytetem"
+      description: "Twoja prywatność jest naszym priorytetem",
     },
     {
       icon: <Users className="w-8 h-8" />,
       title: "Doświadczony team",
-      description: "Zespół z wieloletnim doświadczeniem"
+      description: "Zespół z wieloletnim doświadczeniem",
     },
     {
       icon: <Clock className="w-8 h-8" />,
       title: "24/7 Support",
-      description: "Wsparcie dostępne całodobowo"
-    }
+      description: "Wsparcie dostępne całodobowo",
+    },
   ];
 
   const testimonials = [
     {
       name: "Anonymous User",
       rating: 5,
-      comment: "Najlepszy team w branży! Szybko, skutecznie, bez problemów."
+      comment: "Najlepszy team w branży! Szybko, skutecznie, bez problemów.",
     },
     {
       name: "Client #247",
       rating: 5,
-      comment: "25% fee to nic w porównaniu do jakości usług. Polecam!"
+      comment: "25% fee to nic w porównaniu do jakości usług. Polecam!",
     },
     {
       name: "Verified Member",
       rating: 5,
-      comment: "Codziennie nowe możliwości. Team zawsze dotrzymuje słowa."
-    }
+      comment: "Codziennie nowe możliwości. Team zawsze dotrzymuje słowa.",
+    },
   ];
 
   return (
@@ -176,10 +219,91 @@ const LandingPage = () => {
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
       </div>
 
+      {/* Sticky Navigation */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        showNavbar 
+          ? 'translate-y-0 opacity-100 backdrop-blur-lg bg-black/80 border-b border-pink-500/30' 
+          : '-translate-y-full opacity-0'
+      }`}>
+        <div className="max-w-6xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center space-x-2">
+              <Crown className="w-8 h-8 text-pink-500" />
+              <span className="text-2xl font-black text-pink-500 neon-text">HUSTLER TEAM</span>
+            </div>
+
+            {/* Desktop Menu */}
+            <div className="hidden md:flex items-center space-x-8">
+              {[
+                { name: 'O Nas', id: 'about' },
+                { name: 'Oferta', id: 'services' },
+                { name: 'Dołącz', id: 'join' },
+                { name: 'FAQ', id: 'faq' },
+                { name: 'Kontakt', id: 'contact' }
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className="text-gray-300 hover:text-pink-400 transition-colors duration-300 font-semibold hover:shadow-pink-500/50 hover:text-shadow-lg"
+                >
+                  {item.name}
+                </button>
+              ))}
+              <button
+                onClick={handleTelegramClick}
+                className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold py-2 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
+              >
+                Telegram
+              </button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden text-pink-500 hover:text-pink-400 transition-colors"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+
+          {/* Mobile Menu */}
+          <div className={`md:hidden overflow-hidden transition-all duration-300 ${
+            mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          }`}>
+            <div className="py-4 space-y-4 border-t border-pink-500/30 mt-4">
+              {[
+                { name: 'O Nas', id: 'about' },
+                { name: 'Oferta', id: 'services' },
+                { name: 'Dołącz', id: 'join' },
+                { name: 'FAQ', id: 'faq' },
+                { name: 'Kontakt', id: 'contact' }
+              ].map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className="block w-full text-left text-gray-300 hover:text-pink-400 transition-colors duration-300 font-semibold py-2"
+                >
+                  {item.name}
+                </button>
+              ))}
+              <button
+                onClick={handleTelegramClick}
+                className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300"
+              >
+                Telegram
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center px-4">
         <div className="text-center z-10">
-          <div className={`transition-all duration-200 ${glitchActive ? 'animate-pulse scale-105' : ''}`}>
+          <div
+            className={`transition-all duration-200 ${glitchActive ? "animate-pulse scale-105" : ""}`}
+          >
             <h1 className="text-6xl md:text-8xl font-black mb-6 bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
               HUSTLER
             </h1>
@@ -187,15 +311,16 @@ const LandingPage = () => {
               TEAM
             </h2>
           </div>
-          
+
           <p className="text-xl md:text-2xl text-gray-300 mb-4 max-w-2xl mx-auto">
             Ekskluzywna społeczność dla wybranych
           </p>
           <p className="text-lg text-gray-400 mb-12 max-w-xl mx-auto">
-            Dołącz do elitarnej grupy profesjonalistów i odkryj nowe możliwości zarobku
+            Dołącz do elitarnej grupy profesjonalistów i odkryj nowe możliwości
+            zarobku
           </p>
-          
-          <button 
+
+          <button
             onClick={handleTelegramClick}
             className="group relative overflow-hidden bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold py-4 px-8 rounded-lg text-xl transition-all duration-300 transform hover:scale-105 shadow-lg shadow-pink-500/25 neon-text"
           >
@@ -210,17 +335,24 @@ const LandingPage = () => {
 
         {/* Cyber Grid Background */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `linear-gradient(rgba(236, 72, 153, 0.1) 1px, transparent 1px),
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `linear-gradient(rgba(236, 72, 153, 0.1) 1px, transparent 1px),
                              linear-gradient(90deg, rgba(236, 72, 153, 0.1) 1px, transparent 1px)`,
-            backgroundSize: '50px 50px'
-          }}></div>
+              backgroundSize: "50px 50px",
+            }}
+          ></div>
         </div>
 
         {/* Glitch Lines */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className={`absolute top-1/3 left-0 right-0 h-0.5 bg-pink-500 ${glitchActive ? 'opacity-100' : 'opacity-0'} transition-opacity`}></div>
-          <div className={`absolute top-2/3 left-0 right-0 h-0.5 bg-cyan-400 ${glitchActive ? 'opacity-100' : 'opacity-0'} transition-opacity`}></div>
+          <div
+            className={`absolute top-1/3 left-0 right-0 h-0.5 bg-pink-500 ${glitchActive ? "opacity-100" : "opacity-0"} transition-opacity`}
+          ></div>
+          <div
+            className={`absolute top-2/3 left-0 right-0 h-0.5 bg-cyan-400 ${glitchActive ? "opacity-100" : "opacity-0"} transition-opacity`}
+          ></div>
         </div>
       </section>
 
@@ -233,17 +365,22 @@ const LandingPage = () => {
           <p className="text-center text-gray-400 mb-16 max-w-2xl mx-auto">
             Sprawdzone metody i narzędzia dla profesjonalistów branży
           </p>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <div key={index} className="bg-gray-900/50 backdrop-blur border border-pink-500/30 rounded-lg p-6 hover:border-pink-500 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/25 group">
+              <div
+                key={index}
+                className="bg-gray-900/50 backdrop-blur border border-pink-500/30 rounded-lg p-6 hover:border-pink-500 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/25 group"
+              >
                 <div className="flex items-center mb-4">
                   <div className="bg-gradient-to-br from-pink-500/20 to-purple-500/20 rounded-full w-12 h-12 flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
                     <div className="text-pink-400 group-hover:text-white transition-colors">
                       {service.icon}
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold text-white">{service.title}</h3>
+                  <h3 className="text-xl font-bold text-white">
+                    {service.title}
+                  </h3>
                 </div>
                 <p className="text-gray-400">{service.description}</p>
               </div>
@@ -261,16 +398,21 @@ const LandingPage = () => {
               JAK DOŁĄCZYĆ?
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              Proces weryfikacji zapewnia bezpieczeństwo i jakość naszej społeczności
+              Proces weryfikacji zapewnia bezpieczeństwo i jakość naszej
+              społeczności
             </p>
           </div>
-          
+
           <div className="flex flex-col md:flex-row items-center justify-center gap-8">
             {verificationSteps.map((step, index) => (
               <div key={index} className="relative">
                 <div className="bg-gray-900/50 backdrop-blur border border-purple-500/30 rounded-lg p-8 text-center hover:border-purple-500 transition-all duration-300 w-80">
-                  <div className="text-6xl font-black text-purple-500 mb-4">{step.step}</div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{step.title}</h3>
+                  <div className="text-6xl font-black text-purple-500 mb-4">
+                    {step.step}
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-4">
+                    {step.title}
+                  </h3>
                   <p className="text-gray-400">{step.description}</p>
                 </div>
                 {index < verificationSteps.length - 1 && (
@@ -279,9 +421,9 @@ const LandingPage = () => {
               </div>
             ))}
           </div>
-          
+
           <div className="text-center mt-12">
-            <button 
+            <button
               onClick={handleTelegramClick}
               className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-4 px-8 rounded-lg text-xl transition-all duration-300 transform hover:scale-105"
             >
@@ -297,27 +439,35 @@ const LandingPage = () => {
           <h2 className="text-4xl md:text-5xl font-black text-center mb-16 text-pink-500">
             NASZA OFERTA
           </h2>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-gray-900/50 backdrop-blur border border-pink-500/30 rounded-lg p-8 hover:border-pink-500 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/25">
               <div className="text-center">
-                <div className="text-6xl font-black text-pink-500 mb-4">25%</div>
+                <div className="text-6xl font-black text-pink-500 mb-4">
+                  25%
+                </div>
                 <h3 className="text-2xl font-bold mb-4">Prowizja</h3>
                 <p className="text-gray-300">Płacisz tylko za to co zarobisz</p>
               </div>
             </div>
-            
+
             <div className="bg-gray-900/50 backdrop-blur border border-purple-500/30 rounded-lg p-8 hover:border-purple-500 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/25">
               <div className="text-center">
-                <div className="text-6xl font-black text-purple-500 mb-4">0</div>
+                <div className="text-6xl font-black text-purple-500 mb-4">
+                  0
+                </div>
                 <h3 className="text-2xl font-bold mb-4">Stałe opłaty</h3>
-                <p className="text-gray-300">Brak ukrytych kosztów i abonamentów</p>
+                <p className="text-gray-300">
+                  Brak ukrytych kosztów i abonamentów
+                </p>
               </div>
             </div>
-            
+
             <div className="bg-gray-900/50 backdrop-blur border border-cyan-500/30 rounded-lg p-8 hover:border-cyan-500 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25">
               <div className="text-center">
-                <div className="text-6xl font-black text-cyan-400 mb-4">24h</div>
+                <div className="text-6xl font-black text-cyan-400 mb-4">
+                  24h
+                </div>
                 <h3 className="text-2xl font-bold mb-4">Szybkość</h3>
                 <p className="text-gray-300">Natychmiastowe działanie</p>
               </div>
@@ -332,7 +482,7 @@ const LandingPage = () => {
           <h2 className="text-4xl md:text-5xl font-black text-center mb-16 text-cyan-400">
             DLACZEGO WARTO?
           </h2>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <div key={index} className="text-center group">
@@ -341,7 +491,9 @@ const LandingPage = () => {
                     {feature.icon}
                   </div>
                 </div>
-                <h3 className="text-xl font-bold mb-4 text-white">{feature.title}</h3>
+                <h3 className="text-xl font-bold mb-4 text-white">
+                  {feature.title}
+                </h3>
                 <p className="text-gray-400">{feature.description}</p>
               </div>
             ))}
@@ -355,15 +507,20 @@ const LandingPage = () => {
           <h2 className="text-4xl md:text-5xl font-black text-center mb-16 text-cyan-400">
             CZĘSTO ZADAWANE PYTANIA
           </h2>
-          
+
           <div className="space-y-6">
             {faqData.map((faq, index) => (
-              <div key={index} className="bg-gray-900/50 backdrop-blur border border-cyan-500/30 rounded-lg p-6 hover:border-cyan-500 transition-all duration-300">
+              <div
+                key={index}
+                className="bg-gray-900/50 backdrop-blur border border-cyan-500/30 rounded-lg p-6 hover:border-cyan-500 transition-all duration-300"
+              >
                 <div className="flex items-start mb-4">
                   <div className="bg-gradient-to-br from-cyan-500/20 to-pink-500/20 rounded-full w-8 h-8 flex items-center justify-center mr-4 mt-1">
                     <span className="text-cyan-400 font-bold">?</span>
                   </div>
-                  <h3 className="text-xl font-bold text-white">{faq.question}</h3>
+                  <h3 className="text-xl font-bold text-white">
+                    {faq.question}
+                  </h3>
                 </div>
                 <p className="text-gray-400 ml-12">{faq.answer}</p>
               </div>
@@ -381,22 +538,29 @@ const LandingPage = () => {
           <p className="text-center text-gray-400 mb-16 max-w-2xl mx-auto">
             Profesjonaliści z wieloletnim doświadczeniem w branży
           </p>
-          
+
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             {teamFeatures.map((feature, index) => (
-              <div key={index} className="flex items-center p-6 bg-gray-900/50 backdrop-blur border border-pink-500/30 rounded-lg hover:border-pink-500 transition-all duration-300">
+              <div
+                key={index}
+                className="flex items-center p-6 bg-gray-900/50 backdrop-blur border border-pink-500/30 rounded-lg hover:border-pink-500 transition-all duration-300"
+              >
                 <CheckCircle className="w-8 h-8 text-pink-500 mr-4" />
                 <span className="text-white font-semibold">{feature}</span>
               </div>
             ))}
           </div>
-          
+
           <div className="text-center">
             <div className="inline-flex items-center space-x-8 p-8 bg-gray-900/50 backdrop-blur border border-purple-500/30 rounded-lg">
               <Eye className="w-12 h-12 text-purple-500" />
               <div className="text-left">
-                <h3 className="text-2xl font-bold text-white mb-2">Anonimowy Zespół</h3>
-                <p className="text-gray-400">Tożsamość chroniona dla bezpieczeństwa wszystkich</p>
+                <h3 className="text-2xl font-bold text-white mb-2">
+                  Anonimowy Zespół
+                </h3>
+                <p className="text-gray-400">
+                  Tożsamość chroniona dla bezpieczeństwa wszystkich
+                </p>
               </div>
             </div>
           </div>
@@ -409,30 +573,44 @@ const LandingPage = () => {
           <h2 className="text-4xl md:text-5xl font-black text-center mb-16 text-cyan-400">
             CASE STUDIES
           </h2>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-gray-900/50 backdrop-blur border border-green-500/30 rounded-lg p-6 hover:border-green-500 transition-all duration-300">
               <TrendingUp className="w-12 h-12 text-green-500 mb-4" />
-              <h3 className="text-2xl font-bold text-white mb-4">20 000 zł w 3 dni</h3>
-              <p className="text-gray-400 mb-4">Metoda OLX 2025 - sprawdzona strategia marketplace</p>
+              <h3 className="text-2xl font-bold text-white mb-4">
+                20 000 zł w 3 dni
+              </h3>
+              <p className="text-gray-400 mb-4">
+                Metoda OLX 2025 - sprawdzona strategia marketplace
+              </p>
               <div className="h-24 bg-gradient-to-r from-green-500/20 to-cyan-500/20 rounded flex items-end justify-end p-4">
                 <span className="text-green-400 font-bold">+327%</span>
               </div>
             </div>
-            
+
             <div className="bg-gray-900/50 backdrop-blur border border-purple-500/30 rounded-lg p-6 hover:border-purple-500 transition-all duration-300">
               <Lock className="w-12 h-12 text-purple-500 mb-4" />
-              <h3 className="text-2xl font-bold text-white mb-4">Bezpieczne Działania</h3>
-              <p className="text-gray-400 mb-4">100% projektów zrealizowanych bez problemów</p>
+              <h3 className="text-2xl font-bold text-white mb-4">
+                Bezpieczne Działania
+              </h3>
+              <p className="text-gray-400 mb-4">
+                100% projektów zrealizowanych bez problemów
+              </p>
               <div className="h-24 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded flex items-center justify-center">
-                <span className="text-purple-400 font-bold">Zero Incydentów</span>
+                <span className="text-purple-400 font-bold">
+                  Zero Incydentów
+                </span>
               </div>
             </div>
-            
+
             <div className="bg-gray-900/50 backdrop-blur border border-pink-500/30 rounded-lg p-6 hover:border-pink-500 transition-all duration-300">
               <Users className="w-12 h-12 text-pink-500 mb-4" />
-              <h3 className="text-2xl font-bold text-white mb-4">Zadowoleni Klienci</h3>
-              <p className="text-gray-400 mb-4">95% członków kontynuuje współpracę</p>
+              <h3 className="text-2xl font-bold text-white mb-4">
+                Zadowoleni Klienci
+              </h3>
+              <p className="text-gray-400 mb-4">
+                95% członków kontynuuje współpracę
+              </p>
               <div className="h-24 bg-gradient-to-r from-pink-500/20 to-cyan-500/20 rounded flex items-center justify-center">
                 <span className="text-pink-400 font-bold">500+ Projektów</span>
               </div>
@@ -450,10 +628,13 @@ const LandingPage = () => {
           <p className="text-center text-gray-400 mb-16 max-w-2xl mx-auto">
             Profesjonalne narzędzia dostępne dla członków zespołu
           </p>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {tools.map((tool, index) => (
-              <div key={index} className="bg-gray-900/50 backdrop-blur border border-cyan-500/30 rounded-lg p-6 text-center hover:border-cyan-500 transition-all duration-300 group">
+              <div
+                key={index}
+                className="bg-gray-900/50 backdrop-blur border border-cyan-500/30 rounded-lg p-6 text-center hover:border-cyan-500 transition-all duration-300 group"
+              >
                 <div className="bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
                   <div className="text-cyan-400 group-hover:text-white transition-colors">
                     {tool.icon}
@@ -475,14 +656,21 @@ const LandingPage = () => {
           <p className="text-center text-gray-400 mb-16 max-w-2xl mx-auto">
             Najnowsze trendy i techniki w branży
           </p>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             {blogPosts.map((post, index) => (
-              <div key={index} className="bg-gray-900/50 backdrop-blur border border-purple-500/30 rounded-lg p-6 hover:border-purple-500 transition-all duration-300 group cursor-pointer">
+              <div
+                key={index}
+                className="bg-gray-900/50 backdrop-blur border border-purple-500/30 rounded-lg p-6 hover:border-purple-500 transition-all duration-300 group cursor-pointer"
+              >
                 <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg p-4 mb-4">
-                  <span className="text-purple-400 text-sm font-bold">{post.category}</span>
+                  <span className="text-purple-400 text-sm font-bold">
+                    {post.category}
+                  </span>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4 group-hover:text-pink-400 transition-colors">{post.title}</h3>
+                <h3 className="text-xl font-bold text-white mb-4 group-hover:text-pink-400 transition-colors">
+                  {post.title}
+                </h3>
                 <div className="flex items-center text-gray-400">
                   <span className="text-sm">Przeczytaj więcej</span>
                   <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -503,21 +691,27 @@ const LandingPage = () => {
           <p className="text-xl text-gray-300 mb-8">
             Support 24/7, dostęp tylko po dołączeniu do zespołu
           </p>
-          
+
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             <div className="bg-gray-900/50 backdrop-blur border border-pink-500/30 rounded-lg p-6">
               <MessageCircle className="w-12 h-12 text-pink-500 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">Telegram Support</h3>
-              <p className="text-gray-400">Natychmiastowe odpowiedzi na pytania</p>
+              <h3 className="text-xl font-bold text-white mb-2">
+                Telegram Support
+              </h3>
+              <p className="text-gray-400">
+                Natychmiastowe odpowiedzi na pytania
+              </p>
             </div>
             <div className="bg-gray-900/50 backdrop-blur border border-cyan-500/30 rounded-lg p-6">
               <Shield className="w-12 h-12 text-cyan-400 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">Bezpieczny Kontakt</h3>
+              <h3 className="text-xl font-bold text-white mb-2">
+                Bezpieczny Kontakt
+              </h3>
               <p className="text-gray-400">Zaszyfrowana komunikacja</p>
             </div>
           </div>
-          
-          <button 
+
+          <button
             onClick={handleTelegramClick}
             className="group relative overflow-hidden bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold py-6 px-12 rounded-lg text-2xl transition-all duration-300 transform hover:scale-105 shadow-lg shadow-pink-500/25 w-full md:w-auto pulse-border"
           >
@@ -537,13 +731,13 @@ const LandingPage = () => {
           <h2 className="text-4xl md:text-5xl font-black mb-8 text-white">
             GOTOWY NA <span className="text-pink-500">DZIAŁANIE?</span>
           </h2>
-          
+
           <p className="text-xl text-gray-300 mb-12">
             Dołącz do ekskluzywnej grupy i zacznij zarabiać już dziś
           </p>
-          
+
           <div className="space-y-6">
-            <button 
+            <button
               onClick={handleTelegramClick}
               className="group relative overflow-hidden bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white font-bold py-6 px-12 rounded-lg text-2xl transition-all duration-300 transform hover:scale-105 shadow-lg shadow-pink-500/25 w-full md:w-auto pulse-border"
             >
@@ -554,7 +748,7 @@ const LandingPage = () => {
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-pink-400 opacity-0 group-hover:opacity-20 transition-opacity"></div>
             </button>
-            
+
             <p className="text-sm text-gray-500">
               Kliknij przycisk powyżej, aby otrzymać link do grupy
             </p>
@@ -568,20 +762,26 @@ const LandingPage = () => {
           <div className="bg-gray-900/80 backdrop-blur border border-red-500/30 rounded-lg p-8 text-center relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 via-yellow-500/5 to-red-500/5 animate-pulse"></div>
             <AlertTriangle className="w-16 h-16 text-red-500 mx-auto mb-6 animate-pulse" />
-            <h2 className="text-3xl font-black text-red-500 mb-6">WAŻNE ZASTRZEŻENIE</h2>
+            <h2 className="text-3xl font-black text-red-500 mb-6">
+              WAŻNE ZASTRZEŻENIE
+            </h2>
             <div className="relative z-10 space-y-4 text-gray-300">
               <p className="text-lg">
-                Strona o charakterze edukacyjnym. Wszystkie informacje mają charakter teoretyczny.
+                Strona o charakterze edukacyjnym. Wszystkie informacje mają
+                charakter teoretyczny.
               </p>
               <p>
-                Hustle Team nie ponosi odpowiedzialności za sposób wykorzystania udostępnionych informacji.
+                Hustle Team nie ponosi odpowiedzialności za sposób wykorzystania
+                udostępnionych informacji.
               </p>
               <p className="text-red-400 font-bold">
                 Działaj zgodnie z obowiązującym prawem w Twoim kraju.
               </p>
             </div>
             {/* Glitch effect overlay */}
-            <div className={`absolute inset-0 bg-red-500/10 ${glitchActive ? 'opacity-100' : 'opacity-0'} transition-opacity pointer-events-none`}></div>
+            <div
+              className={`absolute inset-0 bg-red-500/10 ${glitchActive ? "opacity-100" : "opacity-0"} transition-opacity pointer-events-none`}
+            ></div>
           </div>
         </div>
       </section>
@@ -589,13 +789,18 @@ const LandingPage = () => {
       {/* Footer */}
       <footer className="py-12 px-4 border-t border-gray-800 relative">
         <div className="max-w-6xl mx-auto text-center">
-          <div className="text-2xl font-black text-pink-500 mb-4 neon-text">HUSTLER TEAM</div>
-          <p className="text-gray-500 mb-4">© 2025 Hustler Team. Wszystkie prawa zastrzeżone.</p>
+          <div className="text-2xl font-black text-pink-500 mb-4 neon-text">
+            HUSTLER TEAM
+          </div>
+          <p className="text-gray-500 mb-4">
+            © 2025 Hustler Team. Wszystkie prawa zastrzeżone.
+          </p>
           <p className="text-xs text-gray-600">
-            Designed with cyberpunk aesthetics • Powered by cutting-edge technology
+            Designed with cyberpunk aesthetics • Powered by cutting-edge
+            technology
           </p>
         </div>
-        
+
         {/* Footer scan line effect */}
         <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-pink-500 to-transparent opacity-50"></div>
       </footer>
